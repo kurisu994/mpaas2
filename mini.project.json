@@ -28,5 +28,8 @@
   ],
   "compileOptions": {
     "component2": true
+  },
+  "developOptions": {
+    "hotReload": true
   }
 }

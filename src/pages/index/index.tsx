@@ -10,7 +10,7 @@ export default function Index() {
         onClick={() => {
           Taro.navigateToMiniProgram({
             appId: '7215306148277821', //收藏有礼小程序的 appid，固定值请勿修改
-            path: 'tabBar/component/index?originAppId=1721530614827782', //收藏有礼跳转地址和参数
+            path: 'page/tabBar/component/index?originAppId=1721530614827782', //收藏有礼跳转地址和参数
             success: (res) => {
               // 跳转成功
               console.log(JSON.stringify(res));
