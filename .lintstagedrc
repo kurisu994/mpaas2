@@ -1,0 +1,8 @@
+{
+  "*.{md,json}": ["prettier --cache --write"],
+  "*.{js,jsx}": ["eslint --color --cache --fix", "prettier --cache --write"],
+  "*.ts?(x)": [
+    "eslint --color --cache --fix ",
+    "prettier --cache --parser=typescript --write"
+  ]
+}

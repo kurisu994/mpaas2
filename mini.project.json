@@ -1,4 +1,25 @@
 {
   "format": 2,
-  "miniprogramRoot": "./dist"
+  "miniprogramRoot": "./dist",
+  "uploadExclude": [
+    "src/**",
+    "node_modules/**",
+    ".DS_Store",
+    ".eslintrc",
+    "project.config.json",
+    "project.tt.json",
+    "config/**",
+    "tsconfig.json",
+    ".gitignore",
+    "babel.config.js",
+    ".editorconfig",
+    ".npmrc",
+    ".git/**",
+    ".swc/**",
+    "types/**",
+    "pnpm-lock.yaml"
+  ],
+  "compileOptions": {
+    "component2": true
+  }
 }
