@@ -17,7 +17,14 @@
     ".git/**",
     ".swc/**",
     "types/**",
-    "pnpm-lock.yaml"
+    "pnpm-lock.yaml",
+    ".eslintcache",
+    ".eslintignore",
+    ".prettierrc.js",
+    ".lintstagedrc",
+    ".prettierignore",
+    ".eslintrc.cjs",
+    ".husky/**"
   ],
   "compileOptions": {
     "component2": true
