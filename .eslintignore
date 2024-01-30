@@ -6,6 +6,7 @@ demo/
 
 # node 覆盖率文件
 coverage/
+config/
 
 # 忽略文件
 **/*-min.js

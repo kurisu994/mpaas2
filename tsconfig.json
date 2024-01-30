@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2019",
     "module": "commonjs",
+    "strict": true,
     "removeComments": false,
     "preserveConstEnums": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "lib",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -18,10 +20,12 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "paths": {
+      "@/*": ["./src/*"],
+    },
+    "typeRoots": ["node_modules/@types", "./types"],
+    "useDefineForClassFields": true,
   },
-  "include": ["./src", "./types"],
-  "compileOnSave": false
+  "exclude": ["node_modules", "dist", "config"],
+  "compileOnSave": false,
 }
