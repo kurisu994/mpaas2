@@ -29,21 +29,21 @@ export default function Index() {
       >
         跳转
       </Button>
-      <Dialog id="test" />
       <Cell
         title="函数调用打开dialog"
-        onClick={() =>
-          Dialog.open('test', {
-            title: '函数调用',
-            content: '可通过 Dialog.open 打开对话框',
-            onConfirm: () => {
-              Dialog.close('test');
+        onClick={() => {
+          Taro.showModal({
+            title: '提示',
+            content: '这是一个模态弹窗',
+            success: (res) => {
+              if (res.confirm) {
+                console.log('用户点击确定');
+              } else if (res.cancel) {
+                console.log('用户点击取消');
+              }
             },
-            onCancel: () => {
-              Dialog.close('test');
-            },
-          })
-        }
+          });
+        }}
       />
 
       <View>
