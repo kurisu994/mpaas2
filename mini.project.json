@@ -24,6 +24,8 @@
     ".lintstagedrc",
     ".prettierignore",
     ".eslintrc.cjs",
+    ".eslintrc.js",
+    "dist/alipay/vendors.js.LICENSE.txt",
     ".husky/**"
   ],
   "compileOptions": {

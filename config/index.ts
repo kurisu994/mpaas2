@@ -44,8 +44,8 @@ const config = {
   mini: {
     postcss: {
       pxtransform: {
-        enable: false,
-        config: {},
+        enable: true,
+        config: { selectorBlackList: ['nut-'] },
       },
       url: {
         enable: true,
@@ -60,6 +60,12 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]',
         },
       },
+    },
+    optimizeMainPackage: {
+      enable: true,
+    },
+    miniCssExtractPluginOption: {
+      ignoreOrder: true,
     },
   },
   h5: {
