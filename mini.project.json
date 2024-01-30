@@ -26,6 +26,7 @@
     ".eslintrc.cjs",
     ".eslintrc.js",
     "dist/alipay/vendors.js.LICENSE.txt",
+    "dist/alipay/app.js.LICENSE.txt",
     ".husky/**"
   ],
   "compileOptions": {
