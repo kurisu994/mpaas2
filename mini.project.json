@@ -3,11 +3,10 @@
   "miniprogramRoot": "./dist/alipay",
   "uploadExclude": [
     "dist/alipay/app.js.LICENSE.txt",
-    "dist/alipay/mini.project.json",
     "dist/alipay/vendors.js.LICENSE.txt",
     ".editorconfig",
     ".eslintcache",
-    ".git",
+    ".git/**",
     ".eslintignore",
     "tsconfig.json",
     ".eslintrc.js",
@@ -17,14 +16,14 @@
     ".lintstagedrc",
     ".prettierignore",
     ".npmrc",
-    "src",
-    "node_modules",
-    ".swc",
+    "src/**",
+    "node_modules/**",
+    ".swc/**",
     ".DS_Store",
     "pnpm-lock.yaml",
-    "config",
-    "types",
-    ".husky"
+    "config/**",
+    "types/**",
+    ".husky/**"
   ],
   "compileOptions": {
     "component2": true

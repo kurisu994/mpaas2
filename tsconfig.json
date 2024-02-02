@@ -22,6 +22,8 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@@/package.json": ["./package.json"],
+      "@@/project.config.json": ["./project.config.json"],
     },
     "typeRoots": ["node_modules/@types", "./types"],
     "useDefineForClassFields": true,

@@ -2,7 +2,7 @@ import { View } from '@tarojs/components';
 import { Button, Cell, Empty } from '@nutui/nutui-react-taro';
 import st from './index.module.scss';
 
-export default function Index() {
+function Index() {
   const testClick = (_event: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     console.log('点击事件');
   };
@@ -23,3 +23,5 @@ export default function Index() {
     </View>
   );
 }
+
+export default Index;

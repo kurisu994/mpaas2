@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
-import { Button, Cell, Dialog } from '@nutui/nutui-react-taro';
+import { Button, Cell } from '@nutui/nutui-react-taro';
 import st from './index.module.scss';
 
-export default function Index() {
+function Index() {
   const marginStyle = { margin: 8 };
   return (
     <View className={st.page}>
@@ -27,7 +27,7 @@ export default function Index() {
           });
         }}
       >
-        跳转
+        跳转另一个小程序
       </Button>
       <Cell
         title="函数调用打开dialog"
@@ -48,7 +48,7 @@ export default function Index() {
 
       <View>
         <Button type="primary" style={marginStyle} onClick={() => Taro.navigateTo({ url: '/pages/demo/index' })}>
-          主要按钮
+          跳转下页
         </Button>
         <Button type="info" style={marginStyle}>
           信息按钮
@@ -69,3 +69,5 @@ export default function Index() {
     </View>
   );
 }
+
+export default Index;
