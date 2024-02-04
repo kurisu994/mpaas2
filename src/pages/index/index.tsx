@@ -2,12 +2,18 @@ import Taro from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 import { Button, Cell } from '@nutui/nutui-react-taro';
 import st from './index.module.scss';
+import { useBearStore, useDemoStore } from '@/stores';
 
 function Index() {
+  const { bears, increase } = useBearStore();
+  const { counter, decrement } = useDemoStore();
+
   const marginStyle = { margin: 8 };
   return (
     <View className={st.page}>
       <Text>Hello world!</Text>
+      <Text>{`bears is: ${bears}`}</Text>
+      <Text>{`demo count is: ${counter}`}</Text>
       <Button
         style={marginStyle}
         type="primary"
@@ -50,11 +56,11 @@ function Index() {
         <Button type="primary" style={marginStyle} onClick={() => Taro.navigateTo({ url: '/pages/demo/index' })}>
           跳转下页
         </Button>
-        <Button type="info" style={marginStyle}>
-          信息按钮
+        <Button type="info" style={marginStyle} onClick={() => increase()}>
+          add bears
         </Button>
-        <Button type="default" style={marginStyle}>
-          默认按钮
+        <Button type="default" style={marginStyle} onClick={() => decrement()}>
+          demo decrement
         </Button>
         <Button type="danger" style={marginStyle}>
           危险按钮
