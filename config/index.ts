@@ -28,7 +28,7 @@ const config = defineConfig({
     patterns: [{ from: 'mini.project.json', to: `dist/${process.env.TARO_ENV}/mini.project.json` }],
     options: {},
   },
-  plugins: ['@tarojs/plugin-html'],
+  plugins: ['@tarojs/plugin-html', '@taro-hooks/plugin-react'],
   defineConstants: {},
   framework: 'react',
   compiler: {

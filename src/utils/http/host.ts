@@ -1,0 +1,26 @@
+const host = {
+  admin: '/admin',
+  ehr: '/ehr',
+  fvm: '/fvm',
+  oop: '/oop',
+  ocr: '/ocr',
+  valhalla: '/valhalla',
+  finance: '/finance2',
+  order: '/order3',
+  office: '/oa/office',
+  backlog: '/backlog',
+  file: '/file',
+  ability: '/ability',
+  mkt: '/mkt',
+  coupon: '/coupon',
+  dalaran: '/dalaran',
+  member: '/member',
+  cas: '/cas',
+  identify: '/identify',
+  passport: '/passport',
+  sms: '/sms',
+  hestia: '/hestia',
+  hermes: '/hermes',
+};
+
+export default host;

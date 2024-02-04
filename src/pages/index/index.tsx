@@ -1,12 +1,25 @@
 import Taro from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 import { Button, Cell } from '@nutui/nutui-react-taro';
+import { useRequest } from 'taro-hooks';
 import st from './index.module.scss';
 import { useBearStore, useDemoStore } from '@/stores';
+import { apkVersionApi, fetchUserDisturb } from './api';
 
 function Index() {
   const { bears, increase } = useBearStore();
   const { counter, decrement } = useDemoStore();
+  const { data } = useRequest(apkVersionApi, {
+    defaultParams: [{ appToken: '88b0efa9', versionCode: '900' }],
+    manual: false,
+  });
+
+  const { run } = useRequest(fetchUserDisturb, {
+    manual: true,
+    onSuccess: (res) => {
+      console.log(res);
+    },
+  });
 
   const marginStyle = { margin: 8 };
   return (
@@ -14,6 +27,7 @@ function Index() {
       <Text>Hello world!</Text>
       <Text>{`bears is: ${bears}`}</Text>
       <Text>{`demo count is: ${counter}`}</Text>
+      <Text>{`apk version is: ${JSON.stringify(data)}`}</Text>
       <Button
         style={marginStyle}
         type="primary"
@@ -68,12 +82,12 @@ function Index() {
           onClick={() => {
             console.info(process.env.TARO_ENV);
             console.info(process.env.TARO_APP_API);
-            console.info(process.env.TARO_APP_AI);
+            console.info(process.env.TARO_APP_FILE_API);
           }}
         >
           危险按钮
         </Button>
-        <Button type="warning" style={marginStyle}>
+        <Button type="warning" style={marginStyle} onClick={() => run()}>
           警告按钮
         </Button>
         <Button type="success" style={marginStyle}>

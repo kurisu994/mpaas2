@@ -12,7 +12,7 @@ module.exports = {
       'warn',
       {
         props: true,
-        ignorePropertyModificationsFor: ['e', 'res', 'config'],
+        ignorePropertyModificationsFor: ['e', 'res', 'config', 'options'],
       },
     ],
     'no-shadow': 'off',

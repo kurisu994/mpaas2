@@ -14,8 +14,12 @@ declare module '*.styl';
 declare namespace NodeJS {
   interface ProcessEnv {
     TARO_ENV: 'weapp' | 'swan' | 'alipay' | 'h5' | 'rn' | 'tt' | 'quickapp' | 'qq' | 'jd';
+    /** api接口前缀 */
     TARO_APP_API: string;
-    TARO_APP_AI: string;
+    /** 文件上传api */
+    TARO_APP_FILE_API: string;
+    /** 对应grayTag的配置 */
+    TARO_APP_TAG: string;
   }
 }
 

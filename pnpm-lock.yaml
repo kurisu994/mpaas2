@@ -14,6 +14,9 @@ dependencies:
   '@nutui/nutui-react-taro':
     specifier: ^2.3.8
     version: 2.3.8(react-dom@18.2.0)(react@18.2.0)
+  '@taro-hooks/plugin-react':
+    specifier: ^2.0.10
+    version: 2.0.10(@tarojs/helper@3.6.23)(@tarojs/runtime@3.6.23)(@tarojs/service@3.6.23)(@tarojs/shared@3.6.23)(@tarojs/taro@3.6.23)(react@18.2.0)
   '@tarojs/components':
     specifier: 3.6.23
     version: 3.6.23(@tarojs/helper@3.6.23)(@tarojs/runtime@3.6.23)(@tarojs/shared@3.6.23)(@types/react@18.2.48)(postcss@8.4.33)(react@18.2.0)
@@ -44,12 +47,18 @@ dependencies:
   '@tarojs/taro':
     specifier: 3.6.23
     version: 3.6.23(@tarojs/helper@3.6.23)(@tarojs/runtime@3.6.23)(@types/react@18.2.48)(postcss@8.4.33)
+  qs:
+    specifier: ^6.11.2
+    version: 6.11.2
   react:
     specifier: ^18.2.0
     version: 18.2.0
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  taro-hooks:
+    specifier: ^2.0.10
+    version: 2.0.10(@tarojs/taro-h5@3.6.23)(@tarojs/taro@3.6.23)
   zustand:
     specifier: ^4.5.0
     version: 4.5.0(@types/react@18.2.48)(react@18.2.0)
@@ -73,6 +82,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.10
     version: 20.11.10
+  '@types/qs':
+    specifier: ^6.9.11
+    version: 6.9.11
   '@types/react':
     specifier: ^18.2.48
     version: 18.2.48
@@ -2267,6 +2279,64 @@ packages:
       defer-to-connect: 1.1.3
     dev: true
 
+  /@taro-hooks/ahooks@2.0.10:
+    resolution: {integrity: sha512-IPteMM9UhY3DFaripNEJ92sXPtJ3W0QipyYTcnFdaqiwyifxPmW3DV4vA+kxozrRuIZVtJYKNMAcz1lxh51F9A==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      '@taro-hooks/shared': 2.0.10
+      lodash-wechat: 1.0.0
+    dev: false
+
+  /@taro-hooks/blueimp-canvas-to-blob@2.0.10:
+    resolution: {integrity: sha512-Lu19QvAAhFinRnPtd/5AaiYyrlnvHmfYwC629sL7x54b3UowiTX2dLfH+S40GZDHDXximcfYSCCAmelcIDxWxg==}
+    dev: false
+
+  /@taro-hooks/compressorjs@2.0.10:
+    resolution: {integrity: sha512-scD0BHcdlb+oujHWi9ixke9BxMmU9nYzlCwovGBnyVGU7YB03mNbxqcvEDfbzhdxczACeznV9ehgJ9cvjtNrTw==}
+    dependencies:
+      '@taro-hooks/blueimp-canvas-to-blob': 2.0.10
+      is-blob: 2.1.0
+    dev: false
+
+  /@taro-hooks/plugin-react@2.0.10(@tarojs/helper@3.6.23)(@tarojs/runtime@3.6.23)(@tarojs/service@3.6.23)(@tarojs/shared@3.6.23)(@tarojs/taro@3.6.23)(react@18.2.0):
+    resolution: {integrity: sha512-lpyknb9Ggbm2xmvz8GkHj0TN08cYncjVlmjAlfO9dZRltWkw483znnlWC57wsGCfXldkbSrFCMnsl+qvDmPNCg==}
+    peerDependencies:
+      '@tarojs/helper': '>=3.4.x'
+      '@tarojs/runtime': '>=3.4.x'
+      '@tarojs/service': '>=3.4.x'
+      '@tarojs/shared': '>=3.4.x'
+      '@tarojs/taro': '>=3.4.x'
+      react: '>=16.9'
+    dependencies:
+      '@tarojs/helper': 3.6.23
+      '@tarojs/runtime': 3.6.23(@tarojs/shared@3.6.23)
+      '@tarojs/service': 3.6.23(@tarojs/shared@3.6.23)(@tarojs/taro@3.6.23)
+      '@tarojs/shared': 3.6.23
+      '@tarojs/taro': 3.6.23(@tarojs/helper@3.6.23)(@tarojs/runtime@3.6.23)(@types/react@18.2.48)(postcss@8.4.33)
+      acorn: 8.11.3
+      acorn-walk: 8.3.2
+      react: 18.2.0
+    dev: false
+
+  /@taro-hooks/shared@2.0.10:
+    resolution: {integrity: sha512-rfMr5KHzIkGcesiNGpTgdw0pKwJrUbtK0ZThp2u2otBPqoOuH7ohIJBGuwbPosrBl/Vfx5Fh0LH7n6SFl2g1PA==}
+    dev: false
+
+  /@taro-hooks/use-request@2.0.10(@tarojs/taro-h5@3.6.23)(@tarojs/taro@3.6.23):
+    resolution: {integrity: sha512-HfICQcJFZ9XlGfp704X2wbQWzVFAIFo79jfwf3maApFff5YvhIno/CfFFloAG2humEjAr2lesXLPFJ7dVA1YmA==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@tarojs/taro': '>= 3.4.x'
+      '@tarojs/taro-h5': '>= 3.4.x'
+    dependencies:
+      '@taro-hooks/ahooks': 2.0.10
+      '@taro-hooks/shared': 2.0.10
+      '@tarojs/taro': 3.6.23(@tarojs/helper@3.6.23)(@tarojs/runtime@3.6.23)(@types/react@18.2.48)(postcss@8.4.33)
+      '@tarojs/taro-h5': 3.6.23(@tarojs/components@3.6.23)(@tarojs/taro@3.6.23)
+      lodash-wechat: 1.0.0
+      taro-hooks: 2.0.10(@tarojs/taro-h5@3.6.23)(@tarojs/taro@3.6.23)
+    dev: false
+
   /@tarojs/api@3.6.23:
     resolution: {integrity: sha512-lY6+S5P3rVMM7wmsQ1XEtE5o7haS/08G3Haz4EJrg7hmg3IKrC/ju4hypEq+wd4vfPY6hC3AlqMm1zcOyjuDZg==}
     dependencies:
@@ -4390,7 +4460,6 @@ packages:
       function-bind: 1.1.2
       get-intrinsic: 1.2.2
       set-function-length: 1.2.0
-    dev: true
 
   /callsite-record@4.1.5:
     resolution: {integrity: sha512-OqeheDucGKifjQRx524URgV4z4NaKjocGhygTptDea+DLROre4ZEecA4KXDq+P7qlGCohYVNOh3qr+y5XH5Ftg==}
@@ -5487,7 +5556,6 @@ packages:
       get-intrinsic: 1.2.2
       gopd: 1.0.1
       has-property-descriptors: 1.0.1
-    dev: true
 
   /define-lazy-prop@2.0.0:
     resolution: {integrity: sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==}
@@ -7041,7 +7109,6 @@ packages:
       has-proto: 1.0.1
       has-symbols: 1.0.3
       hasown: 2.0.0
-    dev: true
 
   /get-proxy@2.1.0:
     resolution: {integrity: sha512-zmZIaQTWnNQb4R4fJUEp/FC51eZsc6EkErspy3xtIYStaq8EB/hDIWipxsal+E8rz0qD7f2sL/NA9Xee4RInJw==}
@@ -7260,7 +7327,6 @@ packages:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
       get-intrinsic: 1.2.2
-    dev: true
 
   /got@8.3.2:
     resolution: {integrity: sha512-qjUJ5U/hawxosMryILofZCkm3C84PLJS/0grRIpjAwu+Lkxxj5cxeCU25BG0/3mDSpXKTyZr8oh8wIgLaH0QCw==}
@@ -7352,12 +7418,10 @@ packages:
     resolution: {integrity: sha512-VsX8eaIewvas0xnvinAe9bw4WfIeODpGYikiWYLH+dma0Jw6KHYqWiWfhQlgOVK8D6PvjubK5Uc4P0iIhIcNVg==}
     dependencies:
       get-intrinsic: 1.2.2
-    dev: true
 
   /has-proto@1.0.1:
     resolution: {integrity: sha512-7qE+iP+O+bgF9clE5+UoBFzE65mlBiVj3tKCrlNQ0Ogwm0BjpT/gK4SlLYDMybDh5I3TCTKnPPa0oMG7JDYrhg==}
     engines: {node: '>= 0.4'}
-    dev: true
 
   /has-symbol-support-x@1.4.2:
     resolution: {integrity: sha512-3ToOva++HaW+eCpgqZrCfN51IPB+7bJNVT6CUATzueB5Heb8o6Nam0V3HG5dlDvZU1Gn5QLcbahiKw/XVk5JJw==}
@@ -7366,7 +7430,6 @@ packages:
   /has-symbols@1.0.3:
     resolution: {integrity: sha512-l3LCuF6MgDNwTDKkdYGEihYjt5pRPbEg46rtlmnSPlUbgmB8LOIrKJbYYFBSbnPaJexMKtiPO8hmeRjRz2Td+A==}
     engines: {node: '>= 0.4'}
-    dev: true
 
   /has-to-string-tag-x@1.4.1:
     resolution: {integrity: sha512-vdbKfmw+3LoOYVr+mtxHaX5a96+0f3DljYd8JOqvOLsf5mw2Otda2qCDT9qRqLAhrjyQ0h7ual5nOiASpsGNFw==}
@@ -7855,6 +7918,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       binary-extensions: 2.2.0
+
+  /is-blob@2.1.0:
+    resolution: {integrity: sha512-SZ/fTft5eUhQM6oF/ZaASFDEdbFVe89Imltn9uZr03wdKMcWNVYSMjQPFtg05QuNkt5l5c135ElvXEQG0rk4tw==}
+    engines: {node: '>=6'}
+    dev: false
 
   /is-boolean-object@1.1.2:
     resolution: {integrity: sha512-gDYaKHJmnj4aWxyj6YHyXVpdQawtVLHU5cb+eztPGczf6cjuTdwve5ZIEfgXqH4e57An1D1AKf8CZ3kYrQRqYA==}
@@ -8686,6 +8754,10 @@ packages:
   /lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
+  /lodash-wechat@1.0.0:
+    resolution: {integrity: sha512-QoUc/QbEXNu1PsoWXRehZnfSZf5VznHRth5iUteq4qdM9myuKlhGIxSrFl9vhtDfqyUVuprPxXFbUGZ3oGM0JQ==}
+    dev: false
+
   /lodash.clonedeep@4.5.0:
     resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
 
@@ -9386,7 +9458,6 @@ packages:
 
   /object-inspect@1.13.1:
     resolution: {integrity: sha512-5qoj1RUiKOMsCCNLV1CBiPYE10sziTsnmNxkAI/rZhiD63CF7IqdFGC/XzjWjpSgLf0LxXX3bDFIh0E18f6UhQ==}
-    dev: true
 
   /object-keys@1.1.1:
     resolution: {integrity: sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==}
@@ -10454,6 +10525,13 @@ packages:
       side-channel: 1.0.4
     dev: true
 
+  /qs@6.11.2:
+    resolution: {integrity: sha512-tDNIz22aBzCDxLtVH++VnTfzxlfeK5CbqohpSqpJgj1Wg/cQbStNAz3NuqCs5vV+pjBsK4x4pN9HlVh7rcYRiA==}
+    engines: {node: '>=0.6'}
+    dependencies:
+      side-channel: 1.0.4
+    dev: false
+
   /qs@6.5.3:
     resolution: {integrity: sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==}
     engines: {node: '>=0.6'}
@@ -10476,6 +10554,12 @@ packages:
       filter-obj: 1.1.0
       split-on-first: 1.1.0
       strict-uri-encode: 2.0.0
+    dev: false
+
+  /querystring@0.2.1:
+    resolution: {integrity: sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==}
+    engines: {node: '>=0.4.x'}
+    deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
     dev: false
 
   /querystringify@2.2.0:
@@ -11219,7 +11303,6 @@ packages:
       get-intrinsic: 1.2.2
       gopd: 1.0.1
       has-property-descriptors: 1.0.1
-    dev: true
 
   /set-function-name@2.0.1:
     resolution: {integrity: sha512-tMNCiqYVkXIZgc2Hnoy2IvC/f8ezc5koaRFkCjrpWzGpCd3qbZXPzVy9MAZzK1ch/X0jvSkojys3oqJN0qCmdA==}
@@ -11260,7 +11343,6 @@ packages:
       call-bind: 1.0.5
       get-intrinsic: 1.2.2
       object-inspect: 1.13.1
-    dev: true
 
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
@@ -11936,6 +12018,24 @@ packages:
       to-buffer: 1.1.1
       xtend: 4.0.2
     dev: true
+
+  /taro-hooks@2.0.10(@tarojs/taro-h5@3.6.23)(@tarojs/taro@3.6.23):
+    resolution: {integrity: sha512-s1me1mviGekp7a3+j6cKSOhOepJ5Tcrdt3EYNlca05Dp64O/sPRsz2FTlA4Wl4Xnvn8Y7VdNggABnmm9plhkKg==}
+    engines: {node: '>=12.0.0'}
+    requiresBuild: true
+    peerDependencies:
+      '@tarojs/taro': '>= 3.4.x'
+      '@tarojs/taro-h5': '>= 3.4.x'
+    dependencies:
+      '@taro-hooks/ahooks': 2.0.10
+      '@taro-hooks/compressorjs': 2.0.10
+      '@taro-hooks/shared': 2.0.10
+      '@taro-hooks/use-request': 2.0.10(@tarojs/taro-h5@3.6.23)(@tarojs/taro@3.6.23)
+      '@tarojs/taro': 3.6.23(@tarojs/helper@3.6.23)(@tarojs/runtime@3.6.23)(@types/react@18.2.48)(postcss@8.4.33)
+      '@tarojs/taro-h5': 3.6.23(@tarojs/components@3.6.23)(@tarojs/taro@3.6.23)
+      lodash-wechat: 1.0.0
+      querystring: 0.2.1
+    dev: false
 
   /terser-webpack-plugin@5.3.10(@swc/core@1.3.96)(esbuild@0.19.12)(webpack@5.90.0):
     resolution: {integrity: sha512-BKFPWlPDndPs+NGGCr1U59t0XScL5317Y0UReNrHaw9/FwhPENlq6bfgs+4yPfyP51vqC1bQ4rp1EfXW5ZSH9w==}
