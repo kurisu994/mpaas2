@@ -1,10 +1,12 @@
+import { defineConfig } from '@tarojs/cli';
+
 const path = require('path');
 
-const config = {
+const config = defineConfig({
   projectName: 'mpaas2',
   date: '2024-1-19',
   designWidth: (input) => {
-    // 配置 NutUI 375 尺寸
+    // @ts-ignore 配置 NutUI 375 尺寸
     if (input?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
       return 375;
     }
@@ -22,12 +24,12 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: `dist/${process.env.TARO_ENV}`,
-  plugins: ['@tarojs/plugin-html'],
-  defineConstants: {},
   copy: {
-    patterns: [],
+    patterns: [{ from: 'mini.project.json', to: `dist/${process.env.TARO_ENV}/mini.project.json` }],
     options: {},
   },
+  plugins: ['@tarojs/plugin-html'],
+  defineConstants: {},
   framework: 'react',
   compiler: {
     type: 'webpack5',
@@ -103,7 +105,7 @@ const config = {
       },
     },
   },
-};
+});
 
 module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {

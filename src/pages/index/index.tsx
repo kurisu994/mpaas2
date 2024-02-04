@@ -62,7 +62,15 @@ function Index() {
         <Button type="default" style={marginStyle} onClick={() => decrement()}>
           demo decrement
         </Button>
-        <Button type="danger" style={marginStyle}>
+        <Button
+          type="danger"
+          style={marginStyle}
+          onClick={() => {
+            console.info(process.env.TARO_ENV);
+            console.info(process.env.TARO_APP_API);
+            console.info(process.env.TARO_APP_AI);
+          }}
+        >
           危险按钮
         </Button>
         <Button type="warning" style={marginStyle}>

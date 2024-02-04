@@ -4,11 +4,13 @@
   "private": true,
   "description": "测试小程序",
   "scripts": {
-    "reset": "npx rimraf ./**/node_modules",
     "build": "npm run clear && taro build --type alipay",
+    "build:prod": "npm run clear && taro build --type alipay --mode prod",
     "clear": "npx rimraf ./**/dist",
     "dev": "npm run build -- --watch",
+    "dev:prod": "npm run build:prod -- --watch",
     "lint:lint-staged": "lint-staged",
+    "reset": "npx rimraf ./**/node_modules",
     "prepare": "husky install"
   },
   "browserslist": [
@@ -16,7 +18,7 @@
     "Android >= 4.1",
     "ios >= 8"
   ],
-  "author": "",
+  "author": "feewee",
   "dependencies": {
     "@babel/runtime": "^7.23.9",
     "@nutui/icons-react-taro": "^1.0.2",
