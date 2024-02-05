@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import ERROR_MSG from './errorMsg';
+import { encrypt } from './encrypt';
 
 /**
  * response类型简写
@@ -18,13 +19,17 @@ export type PromiseResp<T> = Promise<Resp<T>>;
  */
 export type PromisePageResp<T> = Promise<PageResp<T>>;
 
+const C_M = new Map<string, string>([
+  ['json', 'application/json'], // json格式提交
+  ['form-data', 'multipart/form-data'], // 文件上传
+  ['form-urlencoded', 'application/x-www-form-urlencoded'], // 表单提交
+]);
+const UNKNOWN = 'unknown';
 const defaultOption: FwHttp.FetchConfig = {
   baseUrl: process.env.TARO_APP_API,
   url: '',
   method: 'GET',
-  header: {
-    'content-type': 'application/json',
-  },
+  header: {},
   dataType: 'json',
   responseType: 'text',
   timeout: 30 * 1000,
@@ -35,6 +40,7 @@ const defaultOption: FwHttp.FetchConfig = {
 const uploadOption: FwHttp.UploadConfig = {
   baseUrl: process.env.TARO_APP_FILE_API,
   url: '',
+  fileType: 'image',
   filePath: '',
   name: 'file',
   header: {},
@@ -44,26 +50,13 @@ const uploadOption: FwHttp.UploadConfig = {
 /**
  * 请求
  */
-const _fetch = async (options: FwHttp.FetchConfig): Promise<any> => {
-  console.info(options);
-  if (options.auth) {
-    try {
-      const token = Taro.getStorageSync('token') || '';
-      if (token) {
-        options.header.Authorization = token;
-      }
-    } catch (error) {
-      const err = Error('抱歉，您还未登录');
-      // @ts-ignore
-      err.code = 401;
-      return Promise.reject(err);
-    }
-  }
-
+async function _fetch<T>(options: FwHttp.FetchConfig): Promise<FwHttp.ParseResult<T>> {
+  const { ignoreAuth, noSign, token = '', ...op } = options;
+  await encryptRequest(op, ignoreAuth, noSign, token);
   return new Promise((resolve, reject) => {
-    Taro.request(options)
+    Taro.request(op)
       .then((response) => {
-        const res = parseResponse(response);
+        const res = parseResponse<T>(response);
         if (!res.success) {
           return reject(createError(res));
         }
@@ -73,98 +66,84 @@ const _fetch = async (options: FwHttp.FetchConfig): Promise<any> => {
         reject(error);
       });
   });
-};
+}
 
 /**
  * 上传请求
  */
-const _upload = async (options: FwHttp.UploadConfig): Promise<any> => {
-  if (options.auth) {
-    try {
-      if (!options.header) {
-        options.header = {};
-      }
-      const token = Taro.getStorageSync('token') || '';
-      if (token) {
-        options.header.Authorization = token;
-      }
-    } catch (error) {
-      const err = Error('抱歉，您还未登录');
-      // @ts-ignore
-      err.code = 401;
-      return Promise.reject(err);
-    }
-  }
-
+async function _upload<T>(options: FwHttp.UploadConfig): Promise<FwHttp.ParseResult<T>> {
+  const { onProgressUpdate, ignoreAuth, noSign, token = '', ...op } = options;
+  await encryptRequest(op, ignoreAuth, noSign, token);
   return new Promise((resolve, reject) => {
-    Taro.uploadFile(options)
-      .then((response) => {
-        const res = parseResponse(response);
+    const uploadTask = Taro.uploadFile({
+      ...op,
+      success: (result) => {
+        const res = parseResponse<T>(result);
         if (!res.success) {
           return reject(createError(res));
         }
         resolve(res);
-      })
-      .catch((error) => {
+      },
+      fail: (err) => {
         // 逻辑待定
-        reject(error);
-      });
+        reject(err);
+      },
+    });
+
+    if (onProgressUpdate) {
+      uploadTask.onProgressUpdate(onProgressUpdate);
+    }
   });
-};
+}
 
 /**
  * 为了保持一致的使用习惯，封装成为与axios一致的参数传入
  */
-export function get<T>(requestURL: string, options?: FwHttp.ParamsConfig): Promise<FwHttp.ParseResult<T>> {
-  const data = (options && options.data) || undefined;
+export async function get<T>(requestURL: string, config?: FwHttp.ParamsConfig): Promise<T> {
+  const { intactResponse, contentType: _, ...options } = config || {};
+  const data = options?.data || undefined;
   const dfOptions = JSON.parse(JSON.stringify(defaultOption));
   const _header = options && options.header ? { ...dfOptions.header, ...options.header } : { ...dfOptions.header };
   const _options: FwHttp.FetchConfig = options ? { ...dfOptions, ...options, header: _header } : dfOptions;
 
   _options.method = 'GET';
   _options.url = _options?.baseUrl + requestURL;
-  _options.data = supportParams(data || _options.params);
-  return _fetch(_options);
+  _options.data = data || _options.params;
+  const res = await _fetch<T>(_options);
+  if (intactResponse) {
+    return res as T;
+  }
+  return res?.data;
 }
 
 /**
  * 为了保持一致的使用习惯，封装成为与axios一致的参数传入
  */
-export function post<T>(requestURL: string, params: any, options?: FwHttp.ParamsConfig): Promise<FwHttp.ParseResult<T>> {
-  const data = (options && options.data) || undefined;
+export async function post<T>(requestURL: string, params?: FwHttp.Params, config?: FwHttp.ParamsConfig): Promise<T> {
+  const { intactResponse, contentType = 'json', ...options } = config || {};
+  const data = options?.data || params || undefined;
   const dfOptions = JSON.parse(JSON.stringify(defaultOption));
-  const _header = options && options.header ? { ...dfOptions.header, ...options.header } : { ...dfOptions.header };
+  const _header = options?.header ? { ...dfOptions.header, ...options.header } : { ...dfOptions.header };
+  const ct = C_M.get(contentType) || 'application/json';
+  _header['content-type'] = ct;
   const _options: FwHttp.FetchConfig = options ? { ...dfOptions, ...options, header: _header } : dfOptions;
 
   _options.method = 'POST';
   _options.url = _options?.baseUrl + requestURL;
-  _options.data = supportParams(data || params);
-  return _fetch(_options);
-}
-function supportParams(params: any): any {
-  if (typeof params == 'object') {
-    for (const key of Object.keys(params)) {
-      if (params[key] == null || params[key] == 'null' || params[key] == 'undefined') {
-        delete params[key];
-      }
-      if (params[key] instanceof Array) {
-        const arr: any[] = [];
-        const list: any[] = params[key];
-        for (const listElement of list) {
-          const abj = supportParams(listElement);
-          abj && arr.push(abj);
-        }
-        params[key] = arr;
-      }
-    }
+  _options.data = data;
+
+  const res = await _fetch<T>(_options);
+  if (intactResponse) {
+    return res as T;
   }
-  return params;
+  return res?.data;
 }
 
 /**
  * 文件上传
  */
-export function upload<T>(requestURL: string, filePath: string, options?: FwHttp.UploadConfig): Promise<FwHttp.ParseResult<T>> {
+export async function upload<T = string>(requestURL: string, filePath: string, config?: FwHttp.UploadConfig): Promise<T> {
+  const { intactResponse, contentType: _, ...options } = config || {};
   const dfOptions = JSON.parse(JSON.stringify(uploadOption));
   let _options = { ...dfOptions };
   if (options) {
@@ -172,8 +151,11 @@ export function upload<T>(requestURL: string, filePath: string, options?: FwHttp
   }
   _options.url = requestURL;
   _options.filePath = filePath;
-
-  return _upload(_options);
+  const res = await _upload<T>(_options);
+  if (intactResponse) {
+    return res as T;
+  }
+  return res?.data;
 }
 
 /**
@@ -181,9 +163,8 @@ export function upload<T>(requestURL: string, filePath: string, options?: FwHttp
  */
 function parseResponse<T>(response: FwHttp.Promised): FwHttp.ParseResult<T> {
   const status: number = response.statusCode;
-  let success: boolean = false,
-    _res: FwHttp.ServerResponse<T> = response.data,
-    isOK: boolean = false;
+  let success: boolean = false;
+  let _res: FwHttp.ServerResponse<T> = response.data;
 
   if (typeof _res === 'string') {
     try {
@@ -195,19 +176,16 @@ function parseResponse<T>(response: FwHttp.Promised): FwHttp.ParseResult<T> {
   const code = _res.code;
   const result = _res.result;
   const data = _res.data;
-
+  const traceId = _res.traceId;
   if (response.errMsg) {
-    isOK = response.errMsg.indexOf('ok') > -1;
+    success = response.errMsg.indexOf('ok') > -1;
   }
-
-  if (isOK && _res.success && _res.code >= 0) {
+  if (success || (_res.success && _res.code >= 0)) {
     success = true;
   }
-
   if (status === 401) {
   }
-
-  return { status, code, success, result, data };
+  return { status, code, success, result, data, traceId };
 }
 
 /**
@@ -240,6 +218,55 @@ function createError<T>(responseError: FwHttp.ParseResult<T> | number): FwHttp.E
   error.message = message;
 
   return error;
+}
+
+async function encryptRequest(options: FwHttp.FetchConfig | FwHttp.UploadConfig, ignoreAuth?: boolean, noSign?: boolean, token = '') {
+  if (!options.header) {
+    options.header = {};
+  }
+  const sysInfo = Taro.getSystemInfoSync() || {};
+  options.header['X-Brand'] = sysInfo.brand || UNKNOWN;
+  options.header['X-Model'] = sysInfo.model || UNKNOWN;
+  options.header['X-Platform'] = sysInfo.platform || UNKNOWN;
+  options.header['X-System'] = sysInfo.system || UNKNOWN;
+  options.header['X-Width'] = sysInfo.screenWidth || UNKNOWN;
+  options.header['X-Height'] = sysInfo.screenHeight || UNKNOWN;
+  if (!ignoreAuth) {
+    try {
+      let tk = token;
+      if (!tk) {
+        tk = Taro.getStorageSync('token') || '';
+      }
+      if (tk) {
+        options.header.Authorization = tk;
+      }
+    } catch (error) {
+      const err = Error('抱歉，您还未登录');
+      // @ts-ignore
+      err.code = 401;
+      return Promise.reject(err);
+    }
+  }
+  options.header['X-Appid'] = process.env.TARO_APP_PLT_ID;
+  if (!noSign) {
+    try {
+      const path = options.url || '';
+      const _p = path
+        .replace('http://testgate.feewee.cn', '')
+        .replace('https://testgate.feewee.cn', '')
+        .replace('http://gate.feewee.cn', '')
+        .replace('https://gate.feewee.cn', '')
+        .replace('http://gatewx.feewee.cn', '')
+        .replace('https://gatewx.feewee.cn', '')
+        .split('?')[0];
+      const sign: string = await encrypt(_p);
+      if (sign) {
+        options.header['X-Sign'] = sign;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 export default { get, post, upload };

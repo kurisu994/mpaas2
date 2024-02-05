@@ -12,25 +12,33 @@ declare namespace FwHttp {
      */
     method?: Method;
     data?: Params;
-
+    baseUrl?: string;
     /**
      * 如果设为json，会尝试对返回的数据做一次 JSON.parse
      * @default json
      */
     readonly dataType?: DataType;
     readonly responseType?: ResponseType;
-    readonly success?: (res: any) => void;
-    readonly fail?: (error: any) => void;
-    readonly complete?: () => void;
     readonly timeout?: number;
-    params?: Params;
 
+    token?: string;
     /**
-     * 是否需要权限验证
+     * post请求专用 [默认json]
      */
-    auth?: boolean;
-
-    baseUrl?: string;
+    contentType?: 'form-data' | 'json' | 'form-urlencoded';
+    /**
+     * 完整响应体
+     * 完整响应体指的是包含响应头在哪的完整Response对象
+     * 默认是返回Response.data
+     */
+    intactResponse?: boolean;
+    /**
+     * 忽略鉴权
+     * 指定次参数会移除header里的Authorization
+     */
+    ignoreAuth?: boolean;
+    /** 不对接口进行签名 */
+    noSign?: boolean;
   }
 
   interface FetchConfig extends Config {
@@ -67,10 +75,21 @@ declare namespace FwHttp {
      */
     header: HeadersInit;
     filePath: string;
+    fileType: string;
     name: string;
-    method?: Method;
     formData?: object;
     auth?: boolean;
+    /** 监听上传进度变化事件 */
+    onProgressUpdate?: (progress: {
+      /** 上传进度百分比 */
+      progress: number;
+      /** 预期需要上传的数据总长度，单位 Bytes */
+      totalBytesExpectedToSend: number;
+      /** 已经上传的数据长度，单位 Bytes */
+      totalBytesSent: number;
+    }) => void;
+    /** 中断上传api [暂不支持] */
+    abort?: () => void;
   }
 
   type ErrorCode = Record<number, string>;
@@ -110,6 +129,7 @@ declare namespace FwHttp {
     readonly success: boolean;
     readonly result: string;
     readonly data: T;
+    readonly traceId: string;
   }
 
   interface ParseResult<T> extends ServerResponse<T> {

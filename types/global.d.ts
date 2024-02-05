@@ -24,3 +24,5 @@ declare namespace NodeJS {
 }
 
 declare const my: any;
+type Tuple<L, M, R> = [L, M, R];
+type Pair<L, R> = [L, R];
