@@ -22,7 +22,7 @@
   "dependencies": {
     "@babel/runtime": "^7.23.9",
     "@nutui/icons-react-taro": "^1.0.2",
-    "@nutui/nutui-react-taro": "^2.3.8",
+    "@nutui/nutui-react-taro": "^2.3.10",
     "@taro-hooks/plugin-react": "^2.0.10",
     "@tarojs/components": "3.6.23",
     "@tarojs/helper": "3.6.23",
@@ -46,9 +46,9 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@tarojs/cli": "3.6.23",
     "@tarojs/webpack5-runner": "3.6.23",
-    "@types/node": "^20.11.10",
+    "@types/node": "^20.11.16",
     "@types/qs": "^6.9.11",
-    "@types/react": "^18.2.48",
+    "@types/react": "^18.2.54",
     "@types/webpack-env": "^1.18.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
@@ -60,12 +60,12 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
-    "postcss": "^8.4.33",
+    "lint-staged": "^15.2.2",
+    "postcss": "^8.4.34",
     "react-refresh": "^0.11.0",
     "rimraf": "^5.0.5",
     "stylelint": "^14.16.1",
     "typescript": "^5.3.3",
-    "webpack": "^5.90.0"
+    "webpack": "^5.90.1"
   }
 }
