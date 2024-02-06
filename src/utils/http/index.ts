@@ -238,7 +238,8 @@ async function encryptRequest(options: FwHttp.FetchConfig | FwHttp.UploadConfig,
         tk = Taro.getStorageSync('token') || '';
       }
       if (tk) {
-        options.header.Authorization = tk;
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        options.header['Authorization'] = tk;
       }
     } catch (error) {
       const err = Error('抱歉，您还未登录');
