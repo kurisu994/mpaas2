@@ -5,6 +5,7 @@ import { useRequest } from 'taro-hooks';
 import st from './index.module.scss';
 import { useBearStore, useDemoStore } from '@/stores';
 import { apkVersionApi, fetchUserDisturb } from './api';
+import { WhiteSpace } from '@/components';
 
 function Index() {
   const { bears, increase } = useBearStore();
@@ -27,6 +28,7 @@ function Index() {
       <Text>Hello world!</Text>
       <Text>{`bears is: ${bears}`}</Text>
       <Text>{`demo count is: ${counter}`}</Text>
+      <WhiteSpace />
       <Text>{`apk version is: ${JSON.stringify(data)}`}</Text>
       <Button
         style={marginStyle}

@@ -6,7 +6,6 @@ const Encrypt = require('./jsencrypt.min.js');
 const encryptor = new Encrypt.JSEncrypt();
 
 const PUB_PEM = `
-
 `;
 // 设置公钥
 encryptor.setPublicKey(PUB_PEM);
