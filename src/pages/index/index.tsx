@@ -5,7 +5,7 @@ import { useRequest } from 'taro-hooks';
 import st from './index.module.scss';
 import { useBearStore, useDemoStore } from '@/stores';
 import { apkVersionApi, fetchUserDisturb } from './api';
-import { WhiteSpace } from '@/components';
+import { WhiteSpace } from '@feewee/groupmini-common';
 
 function Index() {
   const { bears, increase } = useBearStore();

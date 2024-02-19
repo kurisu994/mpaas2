@@ -5,7 +5,7 @@ const getDefaultStorage = (key: string) => {
   return getStorageSync(key);
 };
 
-function useStorage<T>(key: string, defaultValue?: T): [T, (string: T) => void, () => void] {
+function useStorage2<T>(key: string, defaultValue?: T): [T, (string: T) => void, () => void] {
   const [storedValue, setStoredValue] = useState<T>(getDefaultStorage(key) || defaultValue);
 
   const setStorageValue = (value: T) => {
@@ -30,4 +30,4 @@ function useStorage<T>(key: string, defaultValue?: T): [T, (string: T) => void, 
   return [storedValue, setStorageValue, removeStorage];
 }
 
-export default useStorage;
+export default useStorage2;

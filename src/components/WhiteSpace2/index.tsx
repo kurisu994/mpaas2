@@ -5,7 +5,7 @@ interface Props {
   height?: number;
 }
 
-export default function WhiteSpace(props: Props) {
+export default function WhiteSpace2(props: Props) {
   const { backgroundColor, height = 10 } = props;
   const style: any = {};
   if (backgroundColor) {

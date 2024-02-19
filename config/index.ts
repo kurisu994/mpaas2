@@ -29,7 +29,11 @@ const config = defineConfig({
     options: {},
   },
   plugins: ['@tarojs/plugin-html', '@taro-hooks/plugin-react'],
-  defineConstants: {},
+  defineConstants: {
+    'process.env.TARO_APP_API': JSON.stringify(process.env.TARO_APP_API),
+    'process.env.TARO_APP_FILE_API': JSON.stringify(process.env.TARO_APP_FILE_API),
+    'process.env.TARO_APP_PLT_ID': JSON.stringify(process.env.TARO_APP_PLT_ID),
+  },
   framework: 'react',
   compiler: {
     type: 'webpack5',

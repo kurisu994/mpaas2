@@ -1,3 +1,3 @@
-import WhiteSpace from './WhiteSpace';
+import WhiteSpace2 from './WhiteSpace2';
 
-export { WhiteSpace };
+export { WhiteSpace2 };

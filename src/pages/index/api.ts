@@ -1,6 +1,5 @@
-import type { PromiseResp } from '@/utils/http';
-import http from '@/utils/http';
-import host from '@/utils/http/host';
+import type { PromiseResp } from '@feewee/groupmini-common';
+import { host, http } from '@feewee/groupmini-common';
 
 export interface DisturbSetting {
   id: number;
